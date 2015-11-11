@@ -19,7 +19,7 @@ class FunctionalTest(StaticLiveServerTestCase):
 			super().tearDownClass()
 
 	def setUp(self):
-		self.browser = webdriver.Firefox()
+		self.browser = webdriver.Chrome()
 		self.browser.implicitly_wait(3)
 
 	def tearDown(self):
@@ -30,3 +30,6 @@ class FunctionalTest(StaticLiveServerTestCase):
 		table = self.browser.find_element_by_id('id_list_table')
 		rows = table.find_elements_by_tag_name('tr')
 		self.assertIn(row_text, [row.text for row in rows])
+
+	def get_item_input_box(self):
+		return self.browser.find_element_by_id('id_text')
