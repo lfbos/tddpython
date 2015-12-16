@@ -3,7 +3,11 @@ from django.test import TestCase
 from lists.models import Item, List
 
 
-class ListAndItemModelsTest(TestCase):
+class ItemModelTest(TestCase):
+
+    def test_default_text(self):
+        item = Item()
+        self.assertEqual(item.text, '')
 
     def test_item_is_related_to_list(self):
         list_ = List.objects.create()
@@ -25,7 +29,6 @@ class ListAndItemModelsTest(TestCase):
         with self.assertRaises(ValidationError):
             item = Item(list=list_, text='bla')
             item.full_clean()
-            item.save()
 
     def test_CAN_save_same_item_to_different_lists(self):
         list1 = List.objects.create()
@@ -47,13 +50,6 @@ class ListAndItemModelsTest(TestCase):
     def test_string_representation(self):
         item = Item(text='some text')
         self.assertEqual(str(item), 'some text')
-
-
-class ItemModelTest(TestCase):
-
-    def test_default_text(self):
-        item = Item()
-        self.assertEqual(item.text, '')
 
 
 class ListModelTest(TestCase):
